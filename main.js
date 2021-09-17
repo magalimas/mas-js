@@ -1,3 +1,77 @@
+// DESAFIO 4
+
+alert('Bienvenidos a Velas Tana');
+
+const aroma = parseInt(prompt(`Elegi el aroma que más te guste (Ejemplo: 3) :
+1.-Jazmin
+2.-Frutos rojos
+3.-Sandía y pepino
+4.-Lavanda
+5.-Papaya
+6.-Pomelo
+7.-Rosas
+8.-Mango y peonias
+`));
+
+const pregunta = parseInt(prompt('Escriba cantidad de velas que desea. Ejemplo: 2'));
+const multiplicar = (a, b) => { return a * b };
+const descuento = (x) => (x - 100);
+
+let precioVelas = 450;
+let precioEnvio = 300;
+
+let totalSinDiscriminar = multiplicar(pregunta, precioVelas);
+alert('En total sin descriminar IVA sería $' + (totalSinDiscriminar + precioEnvio) + '. Detalle: precio por unidad $' + precioVelas + ' + costo de envío: ' + precioEnvio);
+console.log('valor final: $' + totalSinDiscriminar);
+
+const sumandoIva = prompt(`¿Que desea hacer?
+a : Ir a pagar
+b : Agregar más productos
+c : ¡Se mi código de descuento!
+d : Salir`)
+
+if (sumandoIva == 'a') {
+    alert('El total es ' + ( (totalSinDiscriminar + precioEnvio) * 1.21) + ' ¡Gracias por su compra!');
+} else if (sumandoIva == 'b') {
+    const aroma = parseInt(prompt(`Elegi el aroma que más te guste (Ejemplo: 3) :
+    1.-Jazmin
+    2.-Frutos rojos
+    3.-Sandía y pepino
+    4.-Lavanda
+    5.-Papaya
+    6.-Pomelo
+    7.-Rosas
+    8.-Mango y peonias
+    `));
+} else if (sumandoIva == 'c') {
+    let cuponn = descuento;
+    let cupon = prompt('Ingrese palabra para acceder al descuento');
+    if (cupon == 'coderhouse') {
+        alert('Enhorabuena, has conseguido $100 de regalo');
+    } else {
+        alert('Incorrecto')
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+
 // DESAFIO 3
 
 //PRIMER EJEMPLO CON FOR (SORTEO IPHONE)
@@ -70,7 +144,7 @@ while (creador != 'no se') {
 
 // OTRO EJEMPLO PARA MI 
 
-/* let pais = prompt("Indique en que país habita");
+ let pais = prompt("Indique en que país habita");
 
 while(pais != '' ) {
     console.log('Pais ingresado ' + ': ' + pais);
@@ -78,24 +152,8 @@ while(pais != '' ) {
     console.log(horario);
     alert('Actualmente estas en ' + pais + ' y son aproximadamente las ' + horario);
     break;
-} */
+} 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
 // DESAFIO 2 
 
 let ingreso = prompt('Para ingresar, introduzca palabra clave');
@@ -139,13 +197,14 @@ if (pregunta != 2021) {
 
 //DESAFIO 1 
 
-let nombre = prompt ('Escriba su nombre');
-alert('Bienvenido' + " " + nombre);
-let fav = prompt ('Introduzca su numero favorito');
-let numero = parseInt(fav);
-let diez = 10;
-console.log(numero + diez);
-let pais = prompt ('Introduzca su pais');
-let barrio = prompt ('Introduzca su barrio');
-alert('Tu vives en ' + pais + ", " + barrio); 
+//let nombre = prompt ('Escriba su nombre');
+//alert('Bienvenido' + " " + nombre);
+//let fav = prompt ('Introduzca su numero favorito');
+//let numero = parseInt(fav);
+//let diez = 10;
+//console.log(numero + diez);
+//let pais = prompt ('Introduzca su pais');
+//let barrio = prompt ('Introduzca su barrio');
+//alert('Tu vives en ' + pais + ", " + barrio); 
 */
+

@@ -1,7 +1,84 @@
-// DESAFIO 4
+
+
+// DESAFIO 5
 
 alert('Bienvenidos a Velas Tana');
+const msjeEntrada = parseInt(prompt(`Esta es nuestra lista de velas disponible:
+•Venecia
+•Afrodita
+•Florinda
+•Artemisa
+•Pandora
+•Olinda
+•Kaia
+•Milan
 
+ESCRIBA ACEPTAR PARA CONTINUAR Y CONOCER NUESTROS AROMAS DISPONIBLES.
+`));
+
+alert(`Nuestros aromas en stock:
+•Jazmin
+•Frutos rojos
+•Sandía y pepino
+•Lavanda
+•Papaya
+•Pomelo
+•Rosas
+•Mango y peonias
+
+PRESIONE ACEPTAR PARA CONTINUAR CON LA COMPRA.
+
+`);
+
+class Velas {
+    constructor(nombre, aroma, tamaño, precio) {
+        this.nombre = nombre.toUpperCase();
+        this.aroma = aroma;
+        this.tamaño = tamaño;
+        this.precio = parseInt(500);
+        this.precioEnvio = parseInt(400);
+    }
+    totalConIva() {
+        return `
+        El precio con iva es de $ ${(this.precio + this.precioEnvio) * 1.21} 
+        ¡Ya casi finalizamos! Precione aceptar`;
+    }
+    infoTotal() {
+        return `
+        Vela:  ${this.nombre} 
+        Aroma: ${this.aroma} 
+        Tamaño: ${this.tamaño}
+        Precio sin discriminar: $${this.precio}
+        Precio envío: $${this.precioEnvio}
+
+        PRESIONE ACEPTAR PARA CONTINUAR CON SU COMPRA.
+        `
+    }
+}
+
+const nombre = prompt('Ingrese el nombre de la vela que quiere comprar');
+console.log(nombre);
+const aroma = prompt('Ahora elija su aroma favorito');
+console.log(aroma);
+const tamaño = prompt('Para ir finalizando, ¿quiere tamaño chico o grande? ');
+console.log(tamaño);
+const vela1 = new Velas(nombre, aroma, tamaño, 500);
+
+alert(vela1.infoTotal());
+alert(vela1.totalConIva());
+
+const cupon = prompt('Para finalizar, si tiene cupon de descuento ingreselo:');
+if (cupon == 'coderhouse') {
+    alert('Enhorabuena, has conseguido $100 de regalo ' + '.Gracias por su compra, en breve sera contactado');
+} else {
+    alert('Cupon incorrecto. De todas formas agradecemos su compra, en breve sera contactado.');
+}
+
+
+
+/*
+// DESAFIO 4
+alert('Bienvenidos a Velas Tana');
 const aroma = parseInt(prompt(`Elegi el aroma que más te guste (Ejemplo: 3) :
 1.-Jazmin
 2.-Frutos rojos
@@ -12,24 +89,19 @@ const aroma = parseInt(prompt(`Elegi el aroma que más te guste (Ejemplo: 3) :
 7.-Rosas
 8.-Mango y peonias
 `));
-
 const pregunta = parseInt(prompt('Escriba cantidad de velas que desea. Ejemplo: 2'));
 const multiplicar = (a, b) => { return a * b };
 const descuento = (x) => (x - 100);
-
 let precioVelas = 450;
 let precioEnvio = 300;
-
 let totalSinDiscriminar = multiplicar(pregunta, precioVelas);
 alert('En total sin descriminar IVA sería $' + (totalSinDiscriminar + precioEnvio) + '. Detalle: precio por unidad $' + precioVelas + ' + costo de envío: ' + precioEnvio);
 console.log('valor final: $' + totalSinDiscriminar);
-
 const sumandoIva = prompt(`¿Que desea hacer?
 a : Ir a pagar
 b : Agregar más productos
 c : ¡Se mi código de descuento!
 d : Salir`)
-
 if (sumandoIva == 'a') {
     alert('El total es ' + ( (totalSinDiscriminar + precioEnvio) * 1.21) + ' ¡Gracias por su compra!');
 } else if (sumandoIva == 'b') {
@@ -52,32 +124,9 @@ if (sumandoIva == 'a') {
         alert('Incorrecto')
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-
 // DESAFIO 3
-
 //PRIMER EJEMPLO CON FOR (SORTEO IPHONE)
-
 let ingresarCodigo = parseInt(prompt('ingresa el numero para ver si te ganaste el iphone! Tienes un intento'));
-
 for (let i = 1; i <= 150; i++) {
     if (ingresarCodigo == 73) {
     alert('¡Felicitaciones! Te has ganado el iphone');
@@ -85,23 +134,17 @@ for (let i = 1; i <= 150; i++) {
   }
   console.log('Usuario ingreso' + ': ' + 'número ' + ingresarCodigo);
 }
-
 //OTRO EJEMPLO CON FOR (DIFERENCIA EDADES)
-
 let edadHijo = parseInt(prompt('Quieres saber cuantos años tenía tu madre cuando te tuvo? Bien, primero, ingresa tu edad'));
 let edadPadre = parseInt(prompt('Ahora ingrese edad de su madre'));
-
 for (let edad = 10; edad <=105; edad++) {
     let edadFinal = edadPadre - edadHijo;
     alert('Tu madre tenía ' + edadFinal + ' años');
     break;
 }
-
 //OTRO EJEMPLO CON FOR (TURNO)
-
 let fecha = parseInt(prompt('Ingrese la fecha de hoy. Ejemplo: 6'));
 const ultimoDia = 30;
-
 for (let desde = 1; desde <= ultimoDia; desde++) {
     let ingreseTurno = prompt('Turnos disponibles hasta el 30 de septiembre. Introduzca que día quiere el turno (ejemplo: 15)');
     let diasRestantes = ingreseTurno - fecha;
@@ -109,12 +152,8 @@ for (let desde = 1; desde <= ultimoDia; desde++) {
     console.log('Faltan ' + diasRestantes + ' dias para el turno');
     break;
 }
-
-
 // EJEMPLO WHILE
-
 let creador = prompt('Introduzca el nombre de la creadora de este sitio');
-
 while (creador != 'no se') {
     if (creador == 'Magali') {
         let apellido = prompt('Ahora introduzca el apellido');
@@ -122,11 +161,9 @@ while (creador != 'no se') {
             case 'Mas':
                 alert('Correcto. Bienvenido');
                 break;
-    
             case 'MAS':
                 alert('Solo se aceptan mayúsculas en la primer letra.'); 
-                break;
-                
+                break; 
             default:
                 alert('Incorrecto');
                 break;
@@ -135,17 +172,12 @@ while (creador != 'no se') {
         alert('Acceso denegado. Posible robot.');
         break;
     }
-
     apellido = prompt('Última chance. Introduzca el apellido');
     break;
     console.log(apellido);
 }
-
-
 // OTRO EJEMPLO PARA MI 
-
  let pais = prompt("Indique en que país habita");
-
 while(pais != '' ) {
     console.log('Pais ingresado ' + ': ' + pais);
     let horario = prompt('Ingrese horario. Ejemplo 16:44');
@@ -153,25 +185,17 @@ while(pais != '' ) {
     alert('Actualmente estas en ' + pais + ' y son aproximadamente las ' + horario);
     break;
 } 
-
 // DESAFIO 2 
-
 let ingreso = prompt('Para ingresar, introduzca palabra clave');
 let numero = parseInt(prompt('Introduzca el numero que le enviamos al registrarse'));
-
-
 //INTRODUCIR PALABRA Y NUMERO CLAVE
-
 if ( (ingreso == 'coder' || ingreso == 'coderhouse') && (numero >= 50 && numero < 65)) {
     alert("Palabra y numero clave correcto, continuemos."); 
 } else {
     alert("Algo estás haciendo mal. Intentelo de nuevo más tarde");
 }
-
 // INTRODUCIR FRUTA MAS GRANDE
-
 let fruta = prompt('Introduzca una de las frutas más grandes del mundo');
-
 if (fruta == 'sandia' || fruta == 'anana' || fruta == 'melon') {
     alert('¡Perfecto!')
 } else if (fruta == 'mango') {
@@ -181,22 +205,14 @@ if (fruta == 'sandia' || fruta == 'anana' || fruta == 'melon') {
 } else {
     console.log('No cumple con lo requerido.');
 }
-
 // INTRODUCIR AÑO ACTUAL
-
 let pregunta = parseInt(prompt('Para finalizar, introduzca en que año se encuentra'));
-
 if (pregunta != 2021) {
     console.log('Es un posible robort');
 } else {
     console.log('Es un humano');
 }
-
-
-
-
 //DESAFIO 1 
-
 //let nombre = prompt ('Escriba su nombre');
 //alert('Bienvenido' + " " + nombre);
 //let fav = prompt ('Introduzca su numero favorito');

@@ -1,7 +1,6 @@
-
 // DESAFIOS 6
 
-// Mensaje de bienvenida
+// MENSAJE DE BIENVENIDA    
 
 const msjeEntrada = prompt('BIENVENIDOS A VELAS TANA\n¿Quiere suscribirse y estar al tanto de nuestras novedades?\nIngrese SI o NO'); 
 if (msjeEntrada == 'SI' || msjeEntrada == 'Si' || msjeEntrada == 'si' ) {
@@ -35,13 +34,17 @@ productos.sort((a, b) => {
   });
   console.log(productos);
 
-const stockProductos = (cantidades, stock) =>{
+//STOCK
+
+const isStock = (cantidades, stock) =>{
     if(cantidades > stock){
         alert(`¡Ups! No hay stock suficiente, el stock disponible es ${stock}`);
         return false;
     }
     else return true;
 } 
+
+//MUESTRA TAMAÑOS Y PRECIOS VELAS
 
 const mostrarTamañoYPrecio = () =>{
     let listaTamaños = 'EN ESTE MOMENTO LOS TAMAÑOS DISPONIBLES SON:\n';
@@ -53,43 +56,54 @@ const mostrarTamañoYPrecio = () =>{
       return tamañoIngresado;
 };
 
+//MUESTRA LISTA DE VELAS + AROMAS
+
 const listaVelas = () => {
     let mostrarVelas = 'Elegí la vela que más te guste! (Ejemplo: 2)\nEn este momento las velas disponibles son:\n';
     productos.forEach((velaNombres) => {
-      mostrarVelas += '\n' + velaNombres.id + '-' + velaNombres.producto + ' - Tamaño: ' + velaNombres.tamaño + ' - Aroma: ' + velaNombres.aroma + '\n';
-    });
+      mostrarVelas += '\n' + velaNombres.id + '-' + velaNombres.producto + ' - Tamaño: ' + velaNombres.tamaño + ' - Aroma: ' + velaNombres.aroma + '\n'; });
     mostrarVelas += '\n' + (productos.length + 1) + '-Salir';
     let velaIngresada = parseInt(prompt(mostrarVelas));
-    return velaIngresada;
     console.log('Vela elegida por el usuario nº : ' + velaIngresada);
 };
 
+// POSIBLE AUMENTO  
+
+const aumento = productos.map(product=>product.precio +=80);
+console.log('para luego un aumento subiría a :' + aumento);
+
+// SUMA CANTIDADES + STOCK
+
 const sumarProductos = (usuarioIngresa, cantidades) => {
-    const productoEncontrado = productos.find(producto=>producto.id === usuarioIngresa); 
-    if(stockProductos (cantidades, productos.stock)){
-        carro += (cantidades * productos.precio);
-        productos[usuarioIngresa-1].stock -=cantidades;
-        alert(`${productoEncontrado.producto} fue agregado a la cuenta`);
+    const usuarioIngreso = productos.find(product=>product.id === usuarioIngresa); 
+    if(isStock(cantidades, usuarioIngreso.stock)){
+        carro += (cantidades * usuarioIngreso.precio);
+        productos[usuarioIngresa-1].stock -= cantidades;
+        alert(`${usuarioIngreso.producto} fue agregado a la cuenta`);
     }
+    sumarProductos(usuarioIngresa, cantidadIngresada);
 }
 
 do{
     let usuarioIngresa = mostrarTamañoYPrecio();
     if(usuarioIngresa === productos.length + 1) break;
-    let listaVela = listaVelas();
-    let cantidadIngresada = parseInt(prompt(ingresarCantidad))
-
-    sumarProductos(usuarioIngresa, cantidadIngresada);
-
+    listaVelas();
+    let cantidadIngresada = parseInt(prompt(ingresarCantidad));
     respuesta = prompt('¿Desea agregar mas productos a la cuenta? (SI o NO)');
-
+    console.log('Usuario quiere : ' + cantidadIngresada + ' velas.');
 }while(respuesta === 'Si' || respuesta === 'si' || respuesta === 'SI');
+    
+    
+// CARRITO DE COMPRAS
+if( carro > 0 ){
+    let sumandoIva = carro * 0.21;
+    let precioFinal = sumandoIva + carro;
+    alert(`Su compra tiene un total de $${carro} y \n La totalidad de su compra incluyendo IVA es de $${precioFinal}`);
+} 
 
-if(carro > 0){
-    alert(`Su compra tiene un total de $${carro}`);
-}
+alert('¡Gracias por su visita!');
 
-alert('Gracias')
+
 
 
 

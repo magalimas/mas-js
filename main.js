@@ -1,7 +1,5 @@
 
-//Incluso pueden hacer un filter para filtrar esos productos y de ese array hacerle el descuento mediante el map
-
-// DESAFIO 6
+// DESAFIOS 6
 
 // Mensaje de bienvenida
 
@@ -11,10 +9,9 @@ if (msjeEntrada == 'SI' || msjeEntrada == 'Si' || msjeEntrada == 'si' ) {
     console.log('mails ingresados: ' + ingreseMail);
 } 
 
-let cart = 0;
-let si = 'si';
-let cantidad = number;
-const ingresaCantidad = '¿Cuantas velas deseas? (Ejemplo: 2)';
+let carro = 0;
+let respuesta = 'si';
+const ingresarCantidad = '¿Cuantas velas deseas? (Ejemplo: 2)';
 
 const productos = [
     { id: 1, producto: 'Vela Venecia', tamaño: '(Diametro) 8 cm', aroma: 'Verbena', precio: 450, stock: 50 },
@@ -27,31 +24,33 @@ const productos = [
     { id: 8, producto: 'Vela Milan', tamaño: '(xxl) 14 x 14', aroma: 'Lavanda', precio: 1430, stock: 2 },
 ];
 
-const isStock = (cantidad, stock) => {
-    if(cantidad > stock) {
-        alert(`No tenemos suficiente stock. El stock disponible es ${stock}`);
+productos.sort((a, b) => {
+    if (a.precio == b.precio) {
+      return 0;
+    }
+    if (a.precio < b.precio) {
+      return -1;
+    }
+    return 1;
+  });
+  console.log(productos);
+
+const stockProductos = (cantidades, stock) =>{
+    if(cantidades > stock){
+        alert(`¡Ups! No hay stock suficiente, el stock disponible es ${stock}`);
         return false;
-    } 
+    }
     else return true;
-}
+} 
 
-const cantidadVelas = (elegirVela, cantidad) => {
-    const productoElegido = productos.find(product=>product.id === elegirVela); 
-}
-if (isStock (cantidad, productoElegido.stock)) {
-    cart += (cantidad * productoElegido.precio);
-    productos[elegirVela-1].stock -= cantidad;
-    alert(`${productoElegido.producto} fue agregado a la cuenta`);
-}
-
-const mostrarTamañoYPrecio = () => {
+const mostrarTamañoYPrecio = () =>{
     let listaTamaños = 'EN ESTE MOMENTO LOS TAMAÑOS DISPONIBLES SON:\n';
-    productos.forEach((productoVela) => { 
-      listaTamaños += '\n' + productoVela.id + '-' +' Tamaño: ' + productoVela.tamaño + ' => Precio sin IVA: ' + '$' + productoVela.precio + '\n';
-    });
-    listaTamaños +=  '\n' +(productos.length + 1) + '-Salir' + '\n o bien escriba ACEPTAR para ver nuestra lista de productos disponibles';
-    let tamañoIngresado = parseInt(prompt(listaTamaños));
-    return tamañoIngresado;
+    productos.forEach((productoVela)=> { 
+        listaTamaños += '\n' + productoVela.id + '-' +' Tamaño: ' + productoVela.tamaño + ' => Precio sin IVA: ' + '$' + productoVela.precio + '\n';
+      });
+      listaTamaños +=  '\n' +(productos.length + 1) + '-Salir' + '\n o bien escriba ACEPTAR para ver nuestra lista de productos disponibles';
+      let tamañoIngresado = parseInt(prompt(listaTamaños));
+      return tamañoIngresado;
 };
 
 const listaVelas = () => {
@@ -64,20 +63,33 @@ const listaVelas = () => {
     return velaIngresada;
     console.log('Vela elegida por el usuario nº : ' + velaIngresada);
 };
-if(cart > 0) {
-    alert(`Su compra tiene un total de $${cart}`);
+
+const sumarProductos = (usuarioIngresa, cantidades) => {
+    const productoEncontrado = productos.find(producto=>producto.id === usuarioIngresa); 
+    if(stockProductos (cantidades, productos.stock)){
+        carro += (cantidades * productos.precio);
+        productos[usuarioIngresa-1].stock -=cantidades;
+        alert(`${productoEncontrado.producto} fue agregado a la cuenta`);
+    }
 }
 
-let elegirVela = mostrarTamañoYPrecio();
 do{
-    if(elegirVela === productos.length + 1) break;
+    let usuarioIngresa = mostrarTamañoYPrecio();
+    if(usuarioIngresa === productos.length + 1) break;
     let listaVela = listaVelas();
-    let cantidadIngresada = parseInt(prompt(ingresaCantidad));
+    let cantidadIngresada = parseInt(prompt(ingresarCantidad))
 
-    cantidadVelas(elegirVela, cantidadIngresada);
+    sumarProductos(usuarioIngresa, cantidadIngresada);
 
-    si = prompt('¿Desea agregar mas productos a la cuenta? (Si o No)');
-} while (si === 'Si' || si === 'si' || si === 'SI');
+    respuesta = prompt('¿Desea agregar mas productos a la cuenta? (SI o NO)');
+
+}while(respuesta === 'Si' || respuesta === 'si' || respuesta === 'SI');
+
+if(carro > 0){
+    alert(`Su compra tiene un total de $${carro}`);
+}
+
+alert('Gracias')
 
 
 

@@ -1,5 +1,89 @@
 
+//Incluso pueden hacer un filter para filtrar esos productos y de ese array hacerle el descuento mediante el map
 
+// DESAFIO 6
+
+// Mensaje de bienvenida
+
+const msjeEntrada = prompt('BIENVENIDOS A VELAS TANA\n¿Quiere suscribirse y estar al tanto de nuestras novedades?\nIngrese SI o NO'); 
+if (msjeEntrada == 'SI' || msjeEntrada == 'Si' || msjeEntrada == 'si' ) {
+    const ingreseMail = prompt('Por favor, ingrese su mail');
+    console.log('mails ingresados: ' + ingreseMail);
+} 
+
+let cart = 0;
+let si = 'si';
+let cantidad = number;
+const ingresaCantidad = '¿Cuantas velas deseas? (Ejemplo: 2)';
+
+const productos = [
+    { id: 1, producto: 'Vela Venecia', tamaño: '(Diametro) 8 cm', aroma: 'Verbena', precio: 450, stock: 50 },
+    { id: 2, producto: 'Vela Afrodita', tamaño: '(xs) 6 x 5', aroma: 'Frutos rojos', precio: 590, stock: 35 },
+    { id: 3, producto: 'Vela Florinda', tamaño: '(s) 7 x 7', aroma: 'Jazmin', precio: 700, stock: 0 },
+    { id: 4, producto: 'Vela Artemisa', tamaño: '(m) 8 x 10', aroma: 'Mango y peonias', precio: 900, stock: 10 },
+    { id: 5, producto: 'Vela Pandora', tamaño: '(m) 8 x 12', aroma: 'Rosas', precio: 1300, stock: 60 },
+    { id: 6, producto: 'Vela Olinda', tamaño: '(l) 8 x 15 ', aroma: 'Jazmin y kiwi', precio: 1600, stock: 80 },
+    { id: 7, producto: 'Vela Kaia', tamaño: '(xl) 13 x 8', aroma: 'Sandia y pepino', precio: 1850, stock: 5 },
+    { id: 8, producto: 'Vela Milan', tamaño: '(xxl) 14 x 14', aroma: 'Lavanda', precio: 1430, stock: 2 },
+];
+
+const isStock = (cantidad, stock) => {
+    if(cantidad > stock) {
+        alert(`No tenemos suficiente stock. El stock disponible es ${stock}`);
+        return false;
+    } 
+    else return true;
+}
+
+const cantidadVelas = (elegirVela, cantidad) => {
+    const productoElegido = productos.find(product=>product.id === elegirVela); 
+}
+if (isStock (cantidad, productoElegido.stock)) {
+    cart += (cantidad * productoElegido.precio);
+    productos[elegirVela-1].stock -= cantidad;
+    alert(`${productoElegido.producto} fue agregado a la cuenta`);
+}
+
+const mostrarTamañoYPrecio = () => {
+    let listaTamaños = 'EN ESTE MOMENTO LOS TAMAÑOS DISPONIBLES SON:\n';
+    productos.forEach((productoVela) => { 
+      listaTamaños += '\n' + productoVela.id + '-' +' Tamaño: ' + productoVela.tamaño + ' => Precio sin IVA: ' + '$' + productoVela.precio + '\n';
+    });
+    listaTamaños +=  '\n' +(productos.length + 1) + '-Salir' + '\n o bien escriba ACEPTAR para ver nuestra lista de productos disponibles';
+    let tamañoIngresado = parseInt(prompt(listaTamaños));
+    return tamañoIngresado;
+};
+
+const listaVelas = () => {
+    let mostrarVelas = 'Elegí la vela que más te guste! (Ejemplo: 2)\nEn este momento las velas disponibles son:\n';
+    productos.forEach((velaNombres) => {
+      mostrarVelas += '\n' + velaNombres.id + '-' + velaNombres.producto + ' - Tamaño: ' + velaNombres.tamaño + ' - Aroma: ' + velaNombres.aroma + '\n';
+    });
+    mostrarVelas += '\n' + (productos.length + 1) + '-Salir';
+    let velaIngresada = parseInt(prompt(mostrarVelas));
+    return velaIngresada;
+    console.log('Vela elegida por el usuario nº : ' + velaIngresada);
+};
+if(cart > 0) {
+    alert(`Su compra tiene un total de $${cart}`);
+}
+
+let elegirVela = mostrarTamañoYPrecio();
+do{
+    if(elegirVela === productos.length + 1) break;
+    let listaVela = listaVelas();
+    let cantidadIngresada = parseInt(prompt(ingresaCantidad));
+
+    cantidadVelas(elegirVela, cantidadIngresada);
+
+    si = prompt('¿Desea agregar mas productos a la cuenta? (Si o No)');
+} while (si === 'Si' || si === 'si' || si === 'SI');
+
+
+
+
+
+/*
 // DESAFIO 5
 
 alert('Bienvenidos a Velas Tana');
@@ -76,7 +160,7 @@ if (cupon == 'coderhouse') {
 
 
 
-/*
+
 // DESAFIO 4
 alert('Bienvenidos a Velas Tana');
 const aroma = parseInt(prompt(`Elegi el aroma que más te guste (Ejemplo: 3) :

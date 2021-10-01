@@ -1,17 +1,58 @@
-// DESAFIOS 6
 
-// MENSAJE DE BIENVENIDA    
+// DESAFÍO 8
 
-const msjeEntrada = prompt('BIENVENIDOS A VELAS TANA\n¿Quiere suscribirse y estar al tanto de nuestras novedades?\nIngrese SI o NO'); 
+
+
+const msjeEntrada = prompt('¡BIENVENIDOS/A!\n ¿Quiere suscribirse y estar al tanto de nuestras novedades?\nIngrese SI o NO'); 
 if (msjeEntrada == 'SI' || msjeEntrada == 'Si' || msjeEntrada == 'si' ) {
     const ingreseMail = prompt('Por favor, ingrese su mail');
-    console.log('mails ingresados: ' + ingreseMail);
+    const guardar = localStorage.getItem('ingreseMail');
+    localStorage.setItem('mails', ingreseMail);
 } 
 
+let creandoSection = document.createElement("section");
+let creandoTitulo = document.createElement("h1");
+
+creandoTitulo.textContent = 'VELAS TANA';
+creandoTitulo.classList.add('titulo');
+creandoSection.appendChild(creandoTitulo);
+document.body.appendChild(creandoSection);
+
+const productos = [
+    { id: 1, producto: 'Vela Venecia', tamaño: '(Diametro) 8 cm', aroma: 'Verbena', precio: 450},
+    { id: 2, producto: 'Vela Afrodita', tamaño: '(xs) 6 x 5', aroma: 'Frutos rojos', precio: 590},
+    { id: 3, producto: 'Vela Florinda', tamaño: '(s) 7 x 7', aroma: 'Jazmin', precio: 70},
+    { id: 4, producto: 'Vela Artemisa', tamaño: '(m) 8 x 10', aroma: 'Mango y peonias', precio: 900},
+    { id: 5, producto: 'Vela Pandora', tamaño: '(m) 8 x 12', aroma: 'Rosas', precio: 1300},
+    { id: 6, producto: 'Vela Olinda', tamaño: '(l) 8 x 15 ', aroma: 'Jazmin y kiwi', precio: 1600},
+    { id: 7, producto: 'Vela Kaia', tamaño: '(xl) 13 x 8', aroma: 'Sandia y pepino', precio: 185},
+    { id: 8, producto: 'Vela Milan', tamaño: '(xxl) 14 x 14', aroma: 'Lavanda', precio: 143},
+];
+
+for (const velas of productos) {
+    let agregandoHTML = document.createElement('div');
+    agregandoHTML.classList.add('estiloProductos');
+    agregandoHTML.innerHTML = `<h2 class="ides">ID: ${velas.id} - </h2><h2 class="velas">Vela: ${velas.producto} - </h2><h2 class="aromas">Aroma: ${velas.aroma} - </h2> <h2 class="tamaño">Tamaño: ${velas.tamaño}</h2><h2 class="precio"> - Precio: $${velas.precio}</h2>`;
+    document.body.appendChild(agregandoHTML);
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
+// DESAFIOS 6
 let carro = 0;
 let respuesta = 'si';
 const ingresarCantidad = '¿Cuantas velas deseas? (Ejemplo: 2)';
-
+let sumandoIva = carro * 0.21;
+let precioFinal = sumandoIva + carro;
 const productos = [
     { id: 1, producto: 'Vela Venecia', tamaño: '(Diametro) 8 cm', aroma: 'Verbena', precio: 450, stock: 50 },
     { id: 2, producto: 'Vela Afrodita', tamaño: '(xs) 6 x 5', aroma: 'Frutos rojos', precio: 590, stock: 35 },
@@ -22,7 +63,6 @@ const productos = [
     { id: 7, producto: 'Vela Kaia', tamaño: '(xl) 13 x 8', aroma: 'Sandia y pepino', precio: 1850, stock: 5 },
     { id: 8, producto: 'Vela Milan', tamaño: '(xxl) 14 x 14', aroma: 'Lavanda', precio: 1430, stock: 2 },
 ];
-
 productos.sort((a, b) => {
     if (a.precio == b.precio) {
       return 0;
@@ -33,9 +73,7 @@ productos.sort((a, b) => {
     return 1;
   });
   console.log(productos);
-
 //STOCK
-
 const isStock = (cantidades, stock) =>{
     if(cantidades > stock){
         alert(`¡Ups! No hay stock suficiente, el stock disponible es ${stock}`);
@@ -43,9 +81,7 @@ const isStock = (cantidades, stock) =>{
     }
     else return true;
 } 
-
 //MUESTRA TAMAÑOS Y PRECIOS VELAS
-
 const mostrarTamañoYPrecio = () =>{
     let listaTamaños = 'EN ESTE MOMENTO LOS TAMAÑOS DISPONIBLES SON:\n';
     productos.forEach((productoVela)=> { 
@@ -55,7 +91,6 @@ const mostrarTamañoYPrecio = () =>{
       let tamañoIngresado = parseInt(prompt(listaTamaños));
       return tamañoIngresado;
 };
-
 //MUESTRA LISTA DE VELAS + AROMAS
 
 const listaVelas = () => {
@@ -66,24 +101,19 @@ const listaVelas = () => {
     let velaIngresada = parseInt(prompt(mostrarVelas));
     console.log('Vela elegida por el usuario nº : ' + velaIngresada);
 };
-
 // POSIBLE AUMENTO  
-
 const aumento = productos.map(product=>product.precio +=80);
-console.log('para luego un aumento subiría a :' + aumento);
-
+console.log('El próximo aumento subiría a :' + aumento);
 // SUMA CANTIDADES + STOCK
-
 const sumarProductos = (usuarioIngresa, cantidades) => {
     const usuarioIngreso = productos.find(product=>product.id === usuarioIngresa); 
     if(isStock(cantidades, usuarioIngreso.stock)){
         carro += (cantidades * usuarioIngreso.precio);
         productos[usuarioIngresa-1].stock -= cantidades;
         alert(`${usuarioIngreso.producto} fue agregado a la cuenta`);
+        sumarProductos(usuarioIngresa, cantidadIngresada);
     }
-    sumarProductos(usuarioIngresa, cantidadIngresada);
 }
-
 do{
     let usuarioIngresa = mostrarTamañoYPrecio();
     if(usuarioIngresa === productos.length + 1) break;
@@ -91,27 +121,13 @@ do{
     let cantidadIngresada = parseInt(prompt(ingresarCantidad));
     respuesta = prompt('¿Desea agregar mas productos a la cuenta? (SI o NO)');
     console.log('Usuario quiere : ' + cantidadIngresada + ' velas.');
-}while(respuesta === 'Si' || respuesta === 'si' || respuesta === 'SI');
-    
-    
+}while(respuesta === 'Si' || respuesta === 'si' || respuesta === 'SI');  
 // CARRITO DE COMPRAS
 if( carro > 0 ){
-    let sumandoIva = carro * 0.21;
-    let precioFinal = sumandoIva + carro;
-    alert(`Su compra tiene un total de $${carro} y \n La totalidad de su compra incluyendo IVA es de $${precioFinal}`);
+    alert('Su compra tiene un total de' + carro +  'y la totalidad de su compra incluyendo IVA es de ' + precioFinal);
 } 
-
 alert('¡Gracias por su visita!');
-
-
-
-
-
-
-
-/*
 // DESAFIO 5
-
 alert('Bienvenidos a Velas Tana');
 const msjeEntrada = parseInt(prompt(`Esta es nuestra lista de velas disponible:
 •Venecia
@@ -125,7 +141,6 @@ const msjeEntrada = parseInt(prompt(`Esta es nuestra lista de velas disponible:
 
 ESCRIBA ACEPTAR PARA CONTINUAR Y CONOCER NUESTROS AROMAS DISPONIBLES.
 `));
-
 alert(`Nuestros aromas en stock:
 •Jazmin
 •Frutos rojos
@@ -135,11 +150,8 @@ alert(`Nuestros aromas en stock:
 •Pomelo
 •Rosas
 •Mango y peonias
-
 PRESIONE ACEPTAR PARA CONTINUAR CON LA COMPRA.
-
 `);
-
 class Velas {
     constructor(nombre, aroma, tamaño, precio) {
         this.nombre = nombre.toUpperCase();
@@ -165,7 +177,6 @@ class Velas {
         `
     }
 }
-
 const nombre = prompt('Ingrese el nombre de la vela que quiere comprar');
 console.log(nombre);
 const aroma = prompt('Ahora elija su aroma favorito');
@@ -173,20 +184,14 @@ console.log(aroma);
 const tamaño = prompt('Para ir finalizando, ¿quiere tamaño chico o grande? ');
 console.log(tamaño);
 const vela1 = new Velas(nombre, aroma, tamaño, 500);
-
 alert(vela1.infoTotal());
 alert(vela1.totalConIva());
-
 const cupon = prompt('Para finalizar, si tiene cupon de descuento ingreselo:');
 if (cupon == 'coderhouse') {
     alert('Enhorabuena, has conseguido $100 de regalo ' + '.Gracias por su compra, en breve sera contactado');
 } else {
     alert('Cupon incorrecto. De todas formas agradecemos su compra, en breve sera contactado.');
 }
-
-
-
-
 // DESAFIO 4
 alert('Bienvenidos a Velas Tana');
 const aroma = parseInt(prompt(`Elegi el aroma que más te guste (Ejemplo: 3) :

@@ -1,23 +1,93 @@
 
+// DESAFIO 9
+
+// LISTA DE PRODUCTOS
+
+const productos = [
+    { id: 1, producto: 'Venecia', tamaño: 'chico', aroma: 'Verbena', precio: 450},
+    { id: 2, producto: 'Afrodita', tamaño: 'chico', aroma: 'Frutos rojos', precio: 450},
+    { id: 3, producto: 'Florinda', tamaño: 'mediano', aroma: 'Jazmin', precio: 700},
+    { id: 4, producto: 'Artemisa', tamaño: 'mediano', aroma: 'Mango y peonias', precio: 700},
+    { id: 5, producto: 'Pandora', tamaño: 'mediano', aroma: 'Rosas', precio: 700},
+    { id: 6, producto: 'Olinda', tamaño: 'grande', aroma: 'Jazmin y kiwi', precio: 1200},
+    { id: 7, producto: 'Kaia', tamaño: 'grande', aroma: 'Sandia y pepino', precio: 1200},
+    { id: 8, producto: 'Milan', tamaño: 'grande', aroma: 'Lavanda', precio: 1200},
+];
+
+//MOSTRAR AL USUARIO LISTA 
+
+for (const velas of productos) {
+    let agregandoHTML = document.createElement('div');
+    let agregandoBtnHTML = document.createElement('div');
+    agregandoHTML.classList.add('estiloProductos');
+    agregandoBtnHTML.classList.add('btnCarritoPadre')
+    agregandoHTML.innerHTML = `<h2 class="tituloVela">Vela ${velas.id} :</h2><h3>Nombre: ${velas.producto}</h3><h3>Aroma: ${velas.aroma}</h3><h3>Tamaño: ${velas.tamaño}</h3><h3>Precio: $${velas.precio}</h3>`;
+  agregandoBtnHTML.innerHTML = `<button class="btnCarrito">Agregar al carrito</button>`;
+
+  //MOSTRAR AL USUARIO QUE PRODUCTO AGREGO AL CARRITO
+
+  let usuarioAgrego = document.createElement('h2');
+  let contador = 1;
+
+  agregandoBtnHTML.onclick = () => {
+    usuarioAgrego.innerHTML += `<h2> Ha agregado ${contador} producto ${velas.producto}  al carrito.</h2>`;
+   document.body.appendChild(usuarioAgrego);
+   contador++;
+}
+  document.body.appendChild(agregandoHTML);
+  document.body.appendChild(agregandoBtnHTML);
+}
+
+//PRIMER FORMULARIO: USUARIO INTRODUCE NOMBRE Y MUESTRA 
+
+let nombreUsuario = document.getElementById('formulario');
+let usuarioEscribio = document.createElement('h2');
+
+nombreUsuario.addEventListener('submit', (e) => {
+    e.preventDefault();
+    usuarioEscribio.innerHTML += `Nombre enviado con exito. `;
+    document.body.appendChild(usuarioEscribio);
+});
+
+//PREGUNTA TIENE CODIGO DE DESCUENTO(SI: APARECE INPUT)
+
+const descuento = document.getElementById('btnSi');
+const nuevoElemento = document.getElementById('descuento');
+let descuentoSi = document.createElement('h2');
+
+descuento.addEventListener('click', () => {
+    const nuevo = `
+    <div>
+      <p>Escribelo</p>
+      <input type="text">
+      <input type="submit" value="enviar">
+    </div>`
+
+    nuevoElemento.innerHTML = nuevo;
+});
+
+nuevoElemento.onkeydown = () => {
+    descuentoSi.innerHTML = 'No hay cupones disponibles en este momento. ';
+
+    document.body.appendChild(descuentoSi);
+ }
+
+
+
+/*
 // DESAFÍO 8
-
-
-
 const msjeEntrada = prompt('¡BIENVENIDOS/A!\n ¿Quiere suscribirse y estar al tanto de nuestras novedades?\nIngrese SI o NO'); 
 if (msjeEntrada == 'SI' || msjeEntrada == 'Si' || msjeEntrada == 'si' ) {
     const ingreseMail = prompt('Por favor, ingrese su mail');
     const guardar = localStorage.getItem('ingreseMail');
     localStorage.setItem('mails', ingreseMail);
 } 
-
 let creandoSection = document.createElement("section");
 let creandoTitulo = document.createElement("h1");
-
 creandoTitulo.textContent = 'VELAS TANA';
 creandoTitulo.classList.add('titulo');
 creandoSection.appendChild(creandoTitulo);
 document.body.appendChild(creandoSection);
-
 const productos = [
     { id: 1, producto: 'Vela Venecia', tamaño: '(Diametro) 8 cm', aroma: 'Verbena', precio: 450},
     { id: 2, producto: 'Vela Afrodita', tamaño: '(xs) 6 x 5', aroma: 'Frutos rojos', precio: 590},
@@ -28,25 +98,12 @@ const productos = [
     { id: 7, producto: 'Vela Kaia', tamaño: '(xl) 13 x 8', aroma: 'Sandia y pepino', precio: 185},
     { id: 8, producto: 'Vela Milan', tamaño: '(xxl) 14 x 14', aroma: 'Lavanda', precio: 143},
 ];
-
 for (const velas of productos) {
     let agregandoHTML = document.createElement('div');
     agregandoHTML.classList.add('estiloProductos');
     agregandoHTML.innerHTML = `<h2 class="ides">ID: ${velas.id} - </h2><h2 class="velas">Vela: ${velas.producto} - </h2><h2 class="aromas">Aroma: ${velas.aroma} - </h2> <h2 class="tamaño">Tamaño: ${velas.tamaño}</h2><h2 class="precio"> - Precio: $${velas.precio}</h2>`;
     document.body.appendChild(agregandoHTML);
 }
-
-
-
-
-
-
-
-
-
-
-
-/*
 // DESAFIOS 6
 let carro = 0;
 let respuesta = 'si';

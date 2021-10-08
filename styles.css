@@ -1,6 +1,6 @@
-*{
-    margin: 0;
-    padding: 0;
+* {
+	margin: 0;
+	padding: 0;
 }
 
 body {
@@ -10,45 +10,100 @@ body {
 .titulo {
     text-align: center;
     background-color: lightsalmon;
+    padding: 2rem;
     color: white;
     font-size: 2.5rem;
 }
 
-section h2 {
-    padding: 1rem;
-    background-color: #ffa07a17;
+.diseñoHTML {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
 }
 
-.estiloProductos {
+.diseñoCards{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.buscarProd{
+    display: flex;
+    flex-direction: column;
+    padding-top: 2rem;
+}
+
+.buscarProd h2 {
+    padding-bottom: 1rem;
+}
+
+.tituloDatos {
+  padding-top: 2rem;
+}
+
+.contenedorCards {
+	width: 75vw;
+}
+
+.contenedorGrid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+	grid-gap: 2rem;
+    padding: 1rem;
+}
+
+.card {
+	background: white;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	height: 14rem;
+}
+
+.tituloCard {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
 }
 
-.tituloVela {
-    border: 1px solid black;
-    padding: 0.2rem;
+.fotoInvisible {
+  background-color: #ffa07a54;
+  margin: 0.5rem;
+  padding: 3rem;
+  width: 5rem;
 }
 
-.btnCarritoPadre {
-    text-align: center;
+.textoCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.textoCard p {
+  padding: 0.3rem;
 }
 
 .btnCarrito {
-    padding: 1rem;
+    padding: 0.5rem;
     background: lightsalmon;
 }
 
-#descuento {
-    display: flex;
-    align-items: center;
+.enviado{
+  background-color: #7c564857;
+  padding: 3rem;
 }
 
-#btnSi{
-    margin: 1rem;
-    padding: 0.1rem;
-    width: 4rem;
-    font-size: 1.1rem;
+.listaIzq {
+  padding: 1rem;
 }
 
+#descuento{
+  display: flex;
+  align-items: center;
+}
+
+#btnSi {
+  padding: 0.5rem;
+  width: 4rem;
+}

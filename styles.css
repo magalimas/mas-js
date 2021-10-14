@@ -91,7 +91,7 @@ body {
 
 .enviado{
   background-color: #7c564857;
-  padding: 3rem;
+  padding: 1rem;
 }
 
 .listaIzq {
@@ -106,4 +106,18 @@ body {
 #btnSi {
   padding: 0.5rem;
   width: 4rem;
+}
+
+.precios {
+  padding: 1rem;
+}
+
+.resultBusqPrecio {
+  padding: 0.5rem;
+}
+
+.carrito {
+  border: 1px solid black;
+  margin-top: 4rem;
+  padding: 1rem;
 }

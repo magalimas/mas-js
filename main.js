@@ -1,4 +1,4 @@
-//DESAFIO 10
+//DESAFIO 11
 
 const productos = [
     { id: 1, producto: 'Venecia', tamaño: 'chico', aroma: 'Verbena', precio: 450},
@@ -22,7 +22,7 @@ const armadoCard = (velas) => {
             <div class='tituloCard'>
                 <h2>${velas.producto}</h2>
                 <p class='fotoInvisible'>Foto Vela</p>
-                <button onclick='carroAgregado()' class="btnCarrito">Agregar al carrito</button>
+                <button class="btnCarrito">Agregar al carrito</button>
             </div>
             <div class='textoCard'>
                 <p>Aroma: ${velas.aroma}</p>
@@ -71,55 +71,79 @@ const filtrarVelas = () => {
 barraBusqueda.addEventListener('keyup', filtrarVelas);
 
 
-//MOSTRAR AL USUARIO QUE PRODUCTO AGREGO AL CARRITO
+//MOSTRAR AL USUARIO CANT PRODUCTO QUE AGREGO AL CARRITO
 
-  let usuarioAgrego = document.createElement('h2');
-  let contador = 1;
+let contador =+ 1;
 
-function carroAgregado () {
-    for (const vela of productos) {
-    usuarioAgrego.innerHTML = `<h2> Ha agregado ${contador} producto al carrito.</h2>`;
-   document.body.appendChild(usuarioAgrego);
+$('.btnCarrito').click(function () {
+    $('body').append(`<h2> Ha agregado ${contador} vela/s al carrito.</h2>`);
+    contador++;
+});
+
+
+//BUSCAR X PRECIO Y DEVUELVE TAMAÑOS
+
+$('.datos').prepend(`
+<p class="precios">Por precio:</p>
+<div class="resultBusquedaPrecio">
+    <select class="busquedaXPrecio">
+        <option value="1" selected>Menos de 500</option>
+        <option value="2">Mas de 500</option>
+    </select> 
+</div>`
+);
+
+$('.busquedaXPrecio').change(function (e) {
+    if (e.target.value == 1) {
+        $('.resultBusquedaPrecio').append(`<h4 class="resultBusqPrecio">Tamaño ${productos[0].tamaño} </h4>`)
+    } else if (e.target.value == 2) {
+        $('.resultBusquedaPrecio').append(`<h4 class="resultBusqPrecio">Tamaño ${productos[3].tamaño} y ${productos[5].tamaño} </h4>`)
     }
-    
-};
+});
+
 
 //PRIMER FORMULARIO: USUARIO INTRODUCE NOMBRE Y MUESTRA 
 
-let nombreUsuario = document.getElementById('formulario');
-let usuarioEscribio = document.createElement('h2');
-
-nombreUsuario.addEventListener('submit', (e) => {
+$('#formulario').submit(function (e) {
     e.preventDefault();
-    usuarioEscribio.innerHTML += `<h3 class="enviado">Nombre enviado con exito.</h3> `;
-    document.body.appendChild(usuarioEscribio);
+    $('#formulario').append(`<h4 class="enviado">Nombre enviado con exito.</h4>`);
 });
 
-localStorage.setItem('usuario', JSON.stringify('nombres'));
+
+function guardar() {
+    localStorage.setItem('usuario', JSON.stringify('nombre ingresado'));
+}
+guardar();
 
 
 //PREGUNTA TIENE CODIGO DE DESCUENTO(SI: APARECE INPUT)
 
-const descuento = document.getElementById('btnSi');
-const nuevoElemento = document.getElementById('descuento');
-let descuentoSi = document.createElement('h2');
-
-descuento.addEventListener('click', () => {
-    const nuevo = `
+$('#btnSi').click(function () {
+ $('#descuento').html(`
     <div>
       <p class="listaIzq">Escribelo</p>
       <input type="text">
       <input type="submit" value="enviar">
-    </div>`
-
-    nuevoElemento.innerHTML = nuevo;
+    </div>`);
 });
 
-nuevoElemento.onkeydown = () => {
-    descuentoSi.innerHTML = '<h3 class="enviado">No hay cupones disponibles en este momento.</h3> ';
+$('#descuento').keydown(function () {
+    $('#descuento').html(`<h4 class="enviado">No hay cupones disponibles en este momento.</h4>`);
+})
 
-    document.body.appendChild(descuentoSi);
- }
+
+// ARMANDO CARRITO 
+
+$('.carrito').append(`<h2>MI CARRITO</h2>`);
+
+
+
+
+
+
+
+
+
 
 
 
@@ -134,11 +158,7 @@ nuevoElemento.onkeydown = () => {
 
 
 /*
-
-// DESAFIO 9
-
-// LISTA DE PRODUCTOS
-
+//DESAFIO 10
 const productos = [
     { id: 1, producto: 'Venecia', tamaño: 'chico', aroma: 'Verbena', precio: 450},
     { id: 2, producto: 'Afrodita', tamaño: 'chico', aroma: 'Frutos rojos', precio: 450},
@@ -149,10 +169,98 @@ const productos = [
     { id: 7, producto: 'Kaia', tamaño: 'grande', aroma: 'Sandia y pepino', precio: 1200},
     { id: 8, producto: 'Milan', tamaño: 'grande', aroma: 'Lavanda', precio: 1200},
 ];
-	
-
+//ARMANDO CARDS PARA MOSTRARLO
+const contenedorGrid = document.getElementById('idContenedorGrid');
+const barraBusqueda = document.getElementById('barraBusqueda');
+const armadoCard = (velas) => {
+	return `<div class='card'>
+            <div class='tituloCard'>
+                <h2>${velas.producto}</h2>
+                <p class='fotoInvisible'>Foto Vela</p>
+                <button onclick='carroAgregado()' class="btnCarrito">Agregar al carrito</button>
+            </div>
+            <div class='textoCard'>
+                <p>Aroma: ${velas.aroma}</p>
+                <p>Tamaño: ${velas.tamaño}</p>
+                <h3>$${velas.precio}</h3>
+            </div>
+        </div>`;
+};
+//ARMANDO LA BUSQUEDA DE PRODUCTOS POR SI NO HAY
+const armarFiltro = (productos, contenedorCards) => {
+	contenedorCards.innerHTML = '';
+	if (productos.length > 0) {
+		for (const velas of productos) {
+			const productosExistentes = armadoCard(velas);
+			contenedorCards.innerHTML += productosExistentes;
+		}
+	} else {
+		contenedorCards.innerHTML = `<p>Lo lamentamos. En este momento el producto que busca no esta disponible.</p>`;
+	}
+};
+armarFiltro(productos, contenedorGrid)
+// EMPEZAR A FILTRAR PRODUCTOS POR LA BARRA DE BUSQUEDA
+const filtrarVelas = () => {
+	const barraBusquedaValue = barraBusqueda.value;
+	const velasFiltradas = productos.filter((velas) => {
+		const productNombreLowerCase = velas.producto.toLowerCase();
+		const productAromaLowerCase = velas.aroma.toLowerCase();
+		const resultadoFiltro =
+			productNombreLowerCase.includes(barraBusquedaValue.toLowerCase()) ||
+			productAromaLowerCase.includes(barraBusquedaValue.toLowerCase());
+		return resultadoFiltro;
+	});
+	armarFiltro(velasFiltradas, contenedorGrid);
+};
+barraBusqueda.addEventListener('keyup', filtrarVelas);
+//MOSTRAR AL USUARIO QUE PRODUCTO AGREGO AL CARRITO
+  let usuarioAgrego = document.createElement('h2');
+  let contador = 1;
+function carroAgregado () {
+    for (const vela of productos) {
+    usuarioAgrego.innerHTML = `<h2> Ha agregado ${contador} producto al carrito.</h2>`;
+   document.body.appendChild(usuarioAgrego);
+    }
+};
+//PRIMER FORMULARIO: USUARIO INTRODUCE NOMBRE Y MUESTRA 
+let nombreUsuario = document.getElementById('formulario');
+let usuarioEscribio = document.createElement('h2');
+nombreUsuario.addEventListener('submit', (e) => {
+    e.preventDefault();
+    usuarioEscribio.innerHTML += `<h3 class="enviado">Nombre enviado con exito.</h3> `;
+    document.body.appendChild(usuarioEscribio);
+});
+localStorage.setItem('usuario', JSON.stringify('nombres'));
+//PREGUNTA TIENE CODIGO DE DESCUENTO(SI: APARECE INPUT)
+const descuento = document.getElementById('btnSi');
+const nuevoElemento = document.getElementById('descuento');
+let descuentoSi = document.createElement('h2');
+descuento.addEventListener('click', () => {
+    const nuevo = `
+    <div>
+      <p class="listaIzq">Escribelo</p>
+      <input type="text">
+      <input type="submit" value="enviar">
+    </div>`
+    nuevoElemento.innerHTML = nuevo;
+});
+nuevoElemento.onkeydown = () => {
+    descuentoSi.innerHTML = '<h3 class="enviado">No hay cupones disponibles en este momento.</h3> ';
+    document.body.appendChild(descuentoSi);
+ }
+// DESAFIO 9
+// LISTA DE PRODUCTOS
+const productos = [
+    { id: 1, producto: 'Venecia', tamaño: 'chico', aroma: 'Verbena', precio: 450},
+    { id: 2, producto: 'Afrodita', tamaño: 'chico', aroma: 'Frutos rojos', precio: 450},
+    { id: 3, producto: 'Florinda', tamaño: 'mediano', aroma: 'Jazmin', precio: 700},
+    { id: 4, producto: 'Artemisa', tamaño: 'mediano', aroma: 'Mango y peonias', precio: 700},
+    { id: 5, producto: 'Pandora', tamaño: 'mediano', aroma: 'Rosas', precio: 700},
+    { id: 6, producto: 'Olinda', tamaño: 'grande', aroma: 'Jazmin y kiwi', precio: 1200},
+    { id: 7, producto: 'Kaia', tamaño: 'grande', aroma: 'Sandia y pepino', precio: 1200},
+    { id: 8, producto: 'Milan', tamaño: 'grande', aroma: 'Lavanda', precio: 1200},
+];
 //MOSTRAR AL USUARIO LISTA 
-
 for (const velas of productos) {
     let agregandoHTML = document.createElement('div');
     let agregandoBtnHTML = document.createElement('div');
@@ -160,12 +268,9 @@ for (const velas of productos) {
     agregandoBtnHTML.classList.add('btnCarritoPadre')
     agregandoHTML.innerHTML = `<h2>img : ${fotos[0]}</h2> <h2 class="tituloVela">Vela ${velas.id} :</h2><h3>Nombre: ${velas.producto}</h3><h3>Aroma: ${velas.aroma}</h3><h3>Tamaño: ${velas.tamaño}</h3><h3>Precio: $${velas.precio}</h3>`;
   agregandoBtnHTML.innerHTML = `<button class="btnCarrito">Agregar al carrito</button>`;
-
   //MOSTRAR AL USUARIO QUE PRODUCTO AGREGO AL CARRITO
-
   let usuarioAgrego = document.createElement('h2');
   let contador = 1;
-
   agregandoBtnHTML.onclick = () => {
     usuarioAgrego.innerHTML += `<h2> Ha agregado ${contador} producto ${velas.producto}  al carrito.</h2>`;
    document.body.appendChild(usuarioAgrego);
@@ -174,24 +279,18 @@ for (const velas of productos) {
   document.body.appendChild(agregandoHTML);
   document.body.appendChild(agregandoBtnHTML);
 }
-
 //PRIMER FORMULARIO: USUARIO INTRODUCE NOMBRE Y MUESTRA 
-
 let nombreUsuario = document.getElementById('formulario');
 let usuarioEscribio = document.createElement('h2');
-
 nombreUsuario.addEventListener('submit', (e) => {
     e.preventDefault();
     usuarioEscribio.innerHTML += `Nombre enviado con exito. `;
     document.body.appendChild(usuarioEscribio);
 });
-
 //PREGUNTA TIENE CODIGO DE DESCUENTO(SI: APARECE INPUT)
-
 const descuento = document.getElementById('btnSi');
 const nuevoElemento = document.getElementById('descuento');
 let descuentoSi = document.createElement('h2');
-
 descuento.addEventListener('click', () => {
     const nuevo = `
     <div>
@@ -199,18 +298,13 @@ descuento.addEventListener('click', () => {
       <input type="text">
       <input type="submit" value="enviar">
     </div>`
-
     nuevoElemento.innerHTML = nuevo;
 });
-
 nuevoElemento.onkeydown = () => {
     descuentoSi.innerHTML = 'No hay cupones disponibles en este momento. ';
 
     document.body.appendChild(descuentoSi);
  }
-
-
-
 // DESAFÍO 8
 const msjeEntrada = prompt('¡BIENVENIDOS/A!\n ¿Quiere suscribirse y estar al tanto de nuestras novedades?\nIngrese SI o NO'); 
 if (msjeEntrada == 'SI' || msjeEntrada == 'Si' || msjeEntrada == 'si' ) {
